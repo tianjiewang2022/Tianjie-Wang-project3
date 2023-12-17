@@ -1,0 +1,62 @@
+{
+    "sourceFile": "backend/db/statusUpdates/statusUpdates.model.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 11,
+            "patches": [
+                {
+                    "date": 1702756005881,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1702761194234,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,7 @@\n // statusUpdate.model.js\n const mongoose = require('mongoose');\n+const { statusUpdateSchema } = require('./statusUpdates.schema');\n \n-const statusUpdateSchema = require('./statusUpdates.schema').statusUpdateSchema;\n-\n const StatusUpdate = mongoose.model('StatusUpdate', statusUpdateSchema);\n \n-module.exports = StatusUpdate;\n-\n-\n-\n+module.exports = StatusUpdate;\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1702761317295,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,26 @@\n // statusUpdate.model.js\n const mongoose = require('mongoose');\n const { statusUpdateSchema } = require('./statusUpdates.schema');\n \n-const StatusUpdate = mongoose.model('StatusUpdate', statusUpdateSchema);\n+const StatusUpdate = mongoose.model('StatusUpdateModel', statusUpdateSchema);\n \n\\ No newline at end of file\n-module.exports = StatusUpdate;\n+module.exports = StatusUpdate;\n+\n+const mongoose = require(\"mongoose\")\n+\n+const UserSchema = require('./user.schema').UserSchema;\n+\n+const UserModel = mongoose.model(\"UserModel\", UserSchema);\n+\n+function createUser(user) {\n+    return UserModel.create(user);\n+}\n+\n+function findUserByUsername(username) {\n+    return UserModel.findOne({ username: username }).exec();\n+}\n+\n+module.exports = {\n+    createUser,\n+    findUserByUsername,\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1702761431630,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,26 +1,9 @@\n // statusUpdate.model.js\n const mongoose = require('mongoose');\n const { statusUpdateSchema } = require('./statusUpdates.schema');\n \n-const StatusUpdate = mongoose.model('StatusUpdateModel', statusUpdateSchema);\n+const StatusUpdate = mongoose.model('StatusUpdate', statusUpdateSchema);\n \n module.exports = StatusUpdate;\n \n-const mongoose = require(\"mongoose\")\n-\n-const UserSchema = require('./user.schema').UserSchema;\n-\n-const UserModel = mongoose.model(\"UserModel\", UserSchema);\n-\n-function createUser(user) {\n-    return UserModel.create(user);\n-}\n-\n-function findUserByUsername(username) {\n-    return UserModel.findOne({ username: username }).exec();\n-}\n-\n-module.exports = {\n-    createUser,\n-    findUserByUsername,\n\\ No newline at end of file\n-}\n+c\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1702761531629,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,7 +3,5 @@\n const { statusUpdateSchema } = require('./statusUpdates.schema');\n \n const StatusUpdate = mongoose.model('StatusUpdate', statusUpdateSchema);\n \n-module.exports = StatusUpdate;\n-\n-c\n\\ No newline at end of file\n+module.exports = StatusUpdate;\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1702794812097,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,12 @@\n // statusUpdate.model.js\n const mongoose = require('mongoose');\n const { statusUpdateSchema } = require('./statusUpdates.schema');\n \n+\n const StatusUpdate = mongoose.model('StatusUpdate', statusUpdateSchema);\n+function getStatusUpdates(username) {\n+    const StatusUpdate = require('../statusUpdates/statusUpdates.model');\n+    return StatusUpdate.find({ username: username }).exec();\n+}\n \n module.exports = StatusUpdate;\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1702794821616,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,13 @@\n // statusUpdate.model.js\n-const mongoose = require('mongoose');\n-const { statusUpdateSchema } = require('./statusUpdates.schema');\n+import { model } from 'mongoose';\n+import { statusUpdateSchema } from './statusUpdates.schema';\n \n \n-const StatusUpdate = mongoose.model('StatusUpdate', statusUpdateSchema);\n+const StatusUpdate = model('StatusUpdate', statusUpdateSchema);\n+\n function getStatusUpdates(username) {\n-    const StatusUpdate = require('../statusUpdates/statusUpdates.model');\n\\ No newline at end of file\n+    const StatusUpdate = require('../statusUpdates/statusUpdates.model').default;\n     return StatusUpdate.find({ username: username }).exec();\n }\n \n-module.exports = StatusUpdate;\n+export default StatusUpdate;\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1702794878411,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,8 @@\n \n const StatusUpdate = model('StatusUpdate', statusUpdateSchema);\n \n function getStatusUpdates(username) {\n-    const StatusUpdate = require('../statusUpdates/statusUpdates.model').default;\n     return StatusUpdate.find({ username: username }).exec();\n }\n \n export default StatusUpdate;\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1702795095164,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,5 +8,5 @@\n function getStatusUpdates(username) {\n     return StatusUpdate.find({ username: username }).exec();\n }\n \n-export default StatusUpdate;\n\\ No newline at end of file\n+export default getStatusUpdates;\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1702795175634,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,11 +2,11 @@\n import { model } from 'mongoose';\n import { statusUpdateSchema } from './statusUpdates.schema';\n \n \n-const StatusUpdate = model('StatusUpdate', statusUpdateSchema);\n+const StatusUpdateModel = model('StatusUpdate', statusUpdateSchema);\n \n function getStatusUpdates(username) {\n-    return StatusUpdate.find({ username: username }).exec();\n+    return StatusUpdateModel.find({ username: username }).exec();\n }\n \n export default getStatusUpdates;\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1702801601048,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,11 +2,36 @@\n import { model } from 'mongoose';\n import { statusUpdateSchema } from './statusUpdates.schema';\n \n \n-const StatusUpdateModel = model('StatusUpdate', statusUpdateSchema);\n+const StatusUpdate = mongoose.model('StatusUpdates', statusUpdateSchema);\n \n-function getStatusUpdates(username) {\n-    return StatusUpdateModel.find({ username: username }).exec();\n+async function getStatusUpdatesWithUserDetails() {\n+    try {\n\\ No newline at end of file\n+        const statusUpdates = await StatusUpdate.find();\n+\n+        // Fetch user details for each status update\n+        const statusUpdatesWithUserDetails = await Promise.all(\n+            statusUpdates.map(async (update) => {\n+                const user = await UserModel.findUserByUsername(update.username);\n+                return {\n+                    _id: update._id,\n+                    timestamp: update.timestamp,\n+                    textContent: update.textContent,\n+                    user: {\n+                        username: user.username,\n+                        joinTimestamp: user.joinTimestamp,\n+                        description: user.description,\n+                    },\n+                };\n+            })\n+        );\n+\n+        return statusUpdatesWithUserDetails;\n+    } catch (error) {\n+        throw error;\n+    }\n }\n \n-export default getStatusUpdates;\n+module.exports = {\n+    getStatusUpdatesWithUserDetails,\n+};\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1702801609434,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,37 @@\n+// statusUpdate.model.js\n+import { model } from 'mongoose';\n+import { statusUpdateSchema } from './statusUpdates.schema';\n+\n+\n+const StatusUpdate = mongoose.model('StatusUpdate', statusUpdateSchema);\n+\n+async function getStatusUpdatesWithUserDetails() {\n+    try {\n+        const statusUpdates = await StatusUpdate.find();\n+\n+        // Fetch user details for each status update\n+        const statusUpdatesWithUserDetails = await Promise.all(\n+            statusUpdates.map(async (update) => {\n+                const user = await UserModel.findUserByUsername(update.username);\n+                return {\n+                    _id: update._id,\n+                    timestamp: update.timestamp,\n+                    textContent: update.textContent,\n+                    user: {\n+                        username: user.username,\n+                        joinTimestamp: user.joinTimestamp,\n+                        description: user.description,\n+                    },\n+                };\n+            })\n+        );\n+\n+        return statusUpdatesWithUserDetails;\n+    } catch (error) {\n+        throw error;\n+    }\n+}\n+\n+module.exports = {\n+    getStatusUpdatesWithUserDetails,\n+};\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1702756005880,
+            "name": "Commit-0",
+            "content": "// statusUpdate.model.js\nconst mongoose = require('mongoose');\n\nconst statusUpdateSchema = require('./statusUpdates.schema').statusUpdateSchema;\n\nconst StatusUpdate = mongoose.model('StatusUpdate', statusUpdateSchema);\n\nmodule.exports = StatusUpdate;\n\n\n\n"
+        }
+    ]
+}

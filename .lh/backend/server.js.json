@@ -1,0 +1,26 @@
+{
+    "sourceFile": "backend/server.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1702743108498,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1702743132502,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,11 +8,10 @@\n const path = require('path')\n const cookieParser = require('cookie-parser');\n \n \n-const mongoDBEndpoint = 'mongodb+srv://tianjie6688:<password>@tianjiewebdev.oklaw3e.mongodb.net/?retryWrites=true&w=majority\n-';\n-mongoose.connect(mongoDBEndpoint, { useNewUrlParser: true });\n+const mongoDBEndpoint = 'mongodb+srv://tianjie6688:<password>@tianjiewebdev.oklaw3e.mongodb.net/?retryWrites=true&w=majority';\n+mongoose.connect(mongoDBEndpoint,  { useNewUrlParser: true });\n \n const db = mongoose.connection;\n db.on('error', console.error.bind(console, 'Error connecting to MongoDB:'));\n \n@@ -36,9 +35,9 @@\n });\n \n \n \n-app.listen(process.env.PORT || 8000, function () {\n+app.listen(process.env.PORT || 8000, function() {\n     console.log(\"Starting server now...\")\n })\n \n \n"
+                },
+                {
+                    "date": 1702743154590,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n const path = require('path')\n const cookieParser = require('cookie-parser');\n \n \n-const mongoDBEndpoint = 'mongodb+srv://tianjie6688:<password>@tianjiewebdev.oklaw3e.mongodb.net/?retryWrites=true&w=majority';\n+const mongoDBEndpoint = 'mongodb+srv://tianjie6688:<Wtj-8853044>@tianjiewebdev.oklaw3e.mongodb.net/?retryWrites=true&w=majority';\n mongoose.connect(mongoDBEndpoint, { useNewUrlParser: true });\n \n const db = mongoose.connection;\n db.on('error', console.error.bind(console, 'Error connecting to MongoDB:'));\n"
+                }
+            ],
+            "date": 1702743108498,
+            "name": "Commit-0",
+            "content": "const express = require('express');\nconst helper = require('./apis/helper');\nconst pokemon = require('./apis/pokemon')\nconst users = require('./apis/user')\nconst app = express();\nconst mongoose = require('mongoose')\nconst cors = require('cors')\nconst path = require('path')\nconst cookieParser = require('cookie-parser');\n\n\nconst mongoDBEndpoint = 'mongodb+srv://tianjie6688:<password>@tianjiewebdev.oklaw3e.mongodb.net/?retryWrites=true&w=majority\n';\nmongoose.connect(mongoDBEndpoint,  { useNewUrlParser: true });\n\nconst db = mongoose.connection;\ndb.on('error', console.error.bind(console, 'Error connecting to MongoDB:'));\n\napp.use(cors());\napp.use(express.json());\napp.use(express.urlencoded({ extended: true }));\napp.use(cookieParser());\n\n\napp.use('/api/pokemon/', pokemon);\napp.use('/api/users/', users)\n\n\n\nlet frontend_dir = path.join(__dirname, '..', 'frontend', 'dist')\n\napp.use(express.static(frontend_dir));\napp.get('*', function (req, res) {\n    console.log(\"received request\");\n    res.sendFile(path.join(frontend_dir, \"index.html\"));\n});\n\n\n\napp.listen(process.env.PORT || 8000, function() {\n    console.log(\"Starting server now...\")\n})\n\n\n\n// const http = require('http');\n\n// const server = http.createServer(function (request, response) {\n\n//     response.writeHead(200, { 'Content-Type': 'text/plain' });\n//     response.end('Hello web dev!');\n\n// })\n\n// // 127.0.0.1 === localhost\n// server.listen(8000, \"127.0.0.1\", function() {\n//     console.log(\"The server has started!\")\n// })"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "sourceFile": "frontend/src/Header.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1702745560276,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1702750376726,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,22 +11,22 @@\n     async function checkIfUserIsLoggedIn() {\n         const response = await axios.get('/api/users/isLoggedIn')\n \n         setActiveUsername(response.data.username)\n-    \n+\n     }\n \n     useEffect(() => {\n         checkIfUserIsLoggedIn()\n     }, []);\n \n     async function logOutUser() {\n \n-        await axios.post('/api/users/logOut')\n+        await axios.post('/api/user/logOut')\n         setActiveUsername(null)\n     }\n \n-    if(!activeUsername) {\n+    if (!activeUsername) {\n \n         return (<div className='header'>\n             <Link to=\"/login\" >Click here to login</Link>\n         </div>)\n"
+                }
+            ],
+            "date": 1702745560276,
+            "name": "Commit-0",
+            "content": "import axios from 'axios';\nimport React, { useEffect, useState } from 'react';\n\nimport './Header.css';\nimport { Link } from 'react-router-dom';\n\nexport default function Header() {\n\n    const [activeUsername, setActiveUsername] = useState(null)\n\n    async function checkIfUserIsLoggedIn() {\n        const response = await axios.get('/api/users/isLoggedIn')\n\n        setActiveUsername(response.data.username)\n    \n    }\n\n    useEffect(() => {\n        checkIfUserIsLoggedIn()\n    }, []);\n\n    async function logOutUser() {\n\n        await axios.post('/api/users/logOut')\n        setActiveUsername(null)\n    }\n\n    if(!activeUsername) {\n\n        return (<div className='header'>\n            <Link to=\"/login\" >Click here to login</Link>\n        </div>)\n\n    }\n\n    return (\n        <div className='header'>\n            <div >Welcome, {activeUsername}</div>\n            <button onClick={logOutUser}>Log Out!</button>\n        </div>\n\n    )\n\n}"
+        }
+    ]
+}

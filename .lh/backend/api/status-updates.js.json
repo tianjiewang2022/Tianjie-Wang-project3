@@ -1,0 +1,18 @@
+{
+    "sourceFile": "backend/api/status-updates.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1702756295832,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1702756295832,
+            "name": "Commit-0",
+            "content": "\n// statusUpdate.routes.js\nconst express = require('express');\nconst router = express.Router();\nconst StatusUpdateModel = require('../db/statusUpdate.model');\nconst jwt = require('jsonwebtoken');\n\n// POST /api/status-updates\nrouter.post('/', async function (req, res) {\n    const newStatusUpdate = req.body;\n    console.log('Received new status update:', newStatusUpdate);\n\n    const username = req.cookies.username;\n\n    let decryptedUsername;\n    try {\n        decryptedUsername = jwt.verify(username, \"HUNTERS_PASSWORD\");\n    } catch (e) {\n        return res.status(404).send(\"Invalid request\");\n    }\n\n    newStatusUpdate.username = decryptedUsername;\n    newStatusUpdate.timestamp = new Date().toLocaleString(); // Set current time as timestamp\n\n    try {\n        const createStatusUpdateResponse = await StatusUpdateModel.create(newStatusUpdate);\n        console.log('Status Update Successfully Created:', createStatusUpdateResponse);\n        return res.send(\"Status Update Successfully Created: \" + createStatusUpdateResponse);\n    } catch (error) {\n        console.error('Error creating status update:', error);\n        return res.status(500).send(error);\n    }\n});\n\n// GET /api/status-updates\nrouter.get('/', async function (req, res) {\n    const username = req.cookies.username;\n\n    let decryptedUsername;\n    try {\n        decryptedUsername = jwt.verify(username, \"HUNTERS_PASSWORD\");\n    } catch (e) {\n        return res.status(404).send(\"Invalid request\");\n    }\n\n    try {\n        // Fetch status updates for the logged-in user\n        const userStatusUpdates = await StatusUpdateModel.find({ username: decryptedUsername });\n        // Display user status updates on the homepage\n        res.cookie(\"statusUpdateCount\", userStatusUpdates.length);\n        res.send(userStatusUpdates);\n    } catch (error) {\n        return res.status(500).send(error);\n    }\n});\n\n// Add other routes as needed\n\nmodule.exports = router;\n"
+        }
+    ]
+}

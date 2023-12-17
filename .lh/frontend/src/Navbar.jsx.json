@@ -1,0 +1,30 @@
+{
+    "sourceFile": "frontend/src/Navbar.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1702744021565,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1702744073839,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,10 @@\n         <nav>\n             <ul>\n                 <li><Link to=\"/\">HomePage</Link></li>\n                 <li><Link to=\"/login\">LoginPage</Link></li>\n-                <li><Link to=\"/UserPage\">UserPage</Link></li>\n+                <li><Link to=\"/register\">Register</Link></li>\n+                <li><Link to=\"//pokemon/:pokemonId\">Userpage</Link></li>\n             </ul>\n         </nav>\n     );\n };\n"
+                },
+                {
+                    "date": 1702744081180,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n             <ul>\n                 <li><Link to=\"/\">HomePage</Link></li>\n                 <li><Link to=\"/login\">LoginPage</Link></li>\n                 <li><Link to=\"/register\">Register</Link></li>\n-                <li><Link to=\"/pokemon/:pokemonId\">Userpage</Link></li>\n+                <li><Link to=\"/pokemon/:pokemonId\">UserPage</Link></li>\n             </ul>\n         </nav>\n     );\n };\n"
+                },
+                {
+                    "date": 1702746039737,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,18 +1,26 @@\n // Navbar.js\n-import React from 'react';\n+import React, { useState, useEffect } from 'react';\n import { Link } from 'react-router-dom';\n \n-const Navbar = () => {\n-    return (\n-        <nav>\n-            <ul>\n-                <li><Link to=\"/\">HomePage</Link></li>\n-                <li><Link to=\"/login\">LoginPage</Link></li>\n-                <li><Link to=\"/register\">Register</Link></li>\n-                <li><Link to=\"/pokemon/:pokemonId\">UserPage</Link></li>\n-            </ul>\n-        </nav>\n-    );\n+const Navbar = ({ isLoggedIn }) => {\n+  return (\n+    <nav>\n+      <ul>\n+        {isLoggedIn ? (\n+          <>\n+            <li><Link to=\"/\">HomePage</Link></li>\n+            <li><Link to={`/pokemon/${loggedInUserId}`}>UserPage</Link></li>\n+          </>\n+        ) : (\n+          <>\n+            <li><Link to=\"/\">HomePage</Link></li>\n+            <li><Link to=\"/register\">Register</Link></li>\n+            <li><Link to=\"/login\">Login</Link></li>\n+          </>\n+        )}\n+      </ul>\n+    </nav>\n+  );\n };\n \n export default Navbar;\n"
+                }
+            ],
+            "date": 1702744021565,
+            "name": "Commit-0",
+            "content": "// Navbar.js\nimport React from 'react';\nimport { Link } from 'react-router-dom';\n\nconst Navbar = () => {\n    return (\n        <nav>\n            <ul>\n                <li><Link to=\"/\">HomePage</Link></li>\n                <li><Link to=\"/login\">LoginPage</Link></li>\n                <li><Link to=\"/UserPage\">UserPage</Link></li>\n            </ul>\n        </nav>\n    );\n};\n\nexport default Navbar;\n"
+        }
+    ]
+}

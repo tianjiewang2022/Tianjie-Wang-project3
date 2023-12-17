@@ -1,0 +1,38 @@
+{
+    "sourceFile": "frontend/src/PokemonDetail.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 5,
+            "patches": [
+                {
+                    "date": 1702746516493,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1702746526868,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,9 @@\n \n export default function PokemonDetail() {\n \n     const [pokemonDetails, setPokemonDetails] = useState({});\n+    const [isLoggedIn, setIsLoggedIn] = useState(false);\n     const navigate = useNavigate();\n     const params = useParams()\n \n     async function fetchAndSetPokemon() {\n"
+                },
+                {
+                    "date": 1702746739229,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,52 @@\n+import axios from 'axios';\n+import React, { useEffect, useState } from 'react';\n+import { useNavigate, useParams } from 'react-router';\n+import Navbar from './Navbar';\n+\n+export default function PokemonDetail() {\n+\n+    const [pokemonDetails, setPokemonDetails] = useState({});\n+    const [isLoggedIn, setIsLoggedIn] = useState(false);\n+    const navigate = useNavigate();\n+    const params = useParams()\n+\n+    async function fetchAndSetPokemon() {\n+        const pokemonResponse = await axios.get('/api/pokemon/' + params.pokemonId)\n+        setPokemonDetails(pokemonResponse.data)\n+    }\n+\n+    useEffect(function () {\n+        fetchAndSetPokemon()\n+    }, []);\n+    useEffect(() => {\n+        async function checkIfUserIsLoggedIn() {\n+            try {\n+                const response = await axios.get('/api/users/isLoggedIn');\n+                setIsLoggedIn(true);\n+            } catch (error) {\n+                setIsLoggedIn(false);\n+            }\n+        }\n+\n+        checkIfUserIsLoggedIn();\n+    }, []);\n+\n+    async function deletePokemon() {\n+        const response = await axios.delete('/api/pokemon/' + params.pokemonId)\n+        navigate('/');\n+    }\n+\n+    // if(pokemonDetails.name) return (<div>Loading...</div>);\n+\n+    return (\n+        <div>\n+            <div>Name: {pokemonDetails.name}</div>\n+            <div>Color: {pokemonDetails.color}</div>\n+            <div>Health: {pokemonDetails.health}</div>\n+            <button onClick={deletePokemon}>Delete Me!</button>\n+        </div>\n+\n+    )\n+\n+\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1702746753057,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -39,8 +39,9 @@\n     // if(pokemonDetails.name) return (<div>Loading...</div>);\n \n     return (\n         <div>\n+            <Navbar isLoggedIn={isLoggedIn} />\n             <div>Name: {pokemonDetails.name}</div>\n             <div>Color: {pokemonDetails.color}</div>\n             <div>Health: {pokemonDetails.health}</div>\n             <button onClick={deletePokemon}>Delete Me!</button>\n"
+                },
+                {
+                    "date": 1702746773908,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,45 +49,5 @@\n \n     )\n \n \n-}\n-import axios from 'axios';\n-import React, { useEffect, useState } from 'react';\n-import { useNavigate, useParams } from 'react-router';\n-import Navbar from './Navbar';\n-\n-export default function PokemonDetail() {\n-\n-    const [pokemonDetails, setPokemonDetails] = useState({});\n-    const [isLoggedIn, setIsLoggedIn] = useState(false);\n-    const navigate = useNavigate();\n-    const params = useParams()\n-\n-    async function fetchAndSetPokemon() {\n-        const pokemonResponse = await axios.get('/api/pokemon/' + params.pokemonId)\n-        setPokemonDetails(pokemonResponse.data)\n-    }\n-\n-    useEffect(function () {\n-        fetchAndSetPokemon()\n-    }, []);\n-\n-    async function deletePokemon() {\n-        const response = await axios.delete('/api/pokemon/' + params.pokemonId)\n-        navigate('/');\n-    }\n-\n-    // if(pokemonDetails.name) return (<div>Loading...</div>);\n-\n-    return (\n-        <div>\n-            <div>Name: {pokemonDetails.name}</div>\n-            <div>Color: {pokemonDetails.color}</div>\n-            <div>Health: {pokemonDetails.health}</div>\n-            <button onClick={deletePokemon}>Delete Me!</button>\n-        </div>\n-\n-    )\n-\n-\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1702758995986,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n     }, []);\n     useEffect(() => {\n         async function checkIfUserIsLoggedIn() {\n             try {\n-                const response = await axios.get('/api/users/isLoggedIn');\n+                const response = await axios.get('/api/user/isLoggedIn');\n                 setIsLoggedIn(true);\n             } catch (error) {\n                 setIsLoggedIn(false);\n             }\n"
+                }
+            ],
+            "date": 1702746516493,
+            "name": "Commit-0",
+            "content": "import axios from 'axios';\nimport React, { useEffect, useState } from 'react';\nimport { useNavigate, useParams } from 'react-router';\nimport Navbar from './Navbar';\n\nexport default function PokemonDetail() {\n\n    const [pokemonDetails, setPokemonDetails] = useState({});\n    const navigate = useNavigate();\n    const params = useParams()\n\n    async function fetchAndSetPokemon() {\n        const pokemonResponse = await axios.get('/api/pokemon/' + params.pokemonId)\n        setPokemonDetails(pokemonResponse.data)\n    }\n\n    useEffect(function () {\n        fetchAndSetPokemon()\n    }, []);\n\n    async function deletePokemon() {\n        const response = await axios.delete('/api/pokemon/' + params.pokemonId)\n        navigate('/');\n    }\n\n    // if(pokemonDetails.name) return (<div>Loading...</div>);\n\n    return (\n        <div>\n            <div>Name: {pokemonDetails.name}</div>\n            <div>Color: {pokemonDetails.color}</div>\n            <div>Health: {pokemonDetails.health}</div>\n            <button onClick={deletePokemon}>Delete Me!</button>\n        </div>\n\n    )\n\n\n}"
+        }
+    ]
+}

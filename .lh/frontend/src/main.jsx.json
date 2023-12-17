@@ -1,0 +1,54 @@
+{
+    "sourceFile": "frontend/src/main.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 9,
+            "patches": [
+                {
+                    "date": 1702744149669,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1702746216412,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,7 +36,7 @@\n \n \n ReactDOM.createRoot(document.getElementById('root')).render(\n   <React.StrictMode>\n-    <RouterProvider router={router } />\n+    <RouterProvider router={router} />\n   </React.StrictMode>,\n )\n"
+                },
+                {
+                    "date": 1702748110584,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n import React from 'react'\n import ReactDOM from 'react-dom/client'\n import App from './App'\n-import Pokemons from './Pokemons'\n+import HomePage from './Homepage';\n \n import {\n   createBrowserRouter,\n   RouterProvider,\n"
+                },
+                {
+                    "date": 1702769457221,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,8 +10,9 @@\n } from \"react-router-dom\";\n import PokemonDetail from './PokemonDetail';\n import Login from './Login';\n import CreateUser from './CreateUser';\n+import all from './AllStatusUpdatesPage';\n \n const router = createBrowserRouter([\n   {\n     path: '/pokemon/:pokemonId',\n@@ -26,10 +27,14 @@\n     element: <CreateUser />\n   },\n   {\n     path: '/',\n-    element: <Pokemons />\n+    element: <HomePage />\n   },\n+  {\n+    path: '/all',\n+    element: <AllStatusUpdatesPage />\n+  }\n \n \n ])\n \n"
+                },
+                {
+                    "date": 1702769525624,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,45 @@\n+import React from 'react'\n+import ReactDOM from 'react-dom/client'\n+import App from './App'\n+import HomePage from './Homepage';\n+\n+import {\n+  createBrowserRouter,\n+  RouterProvider,\n+  Route,\n+} from \"react-router-dom\";\n+import PokemonDetail from './PokemonDetail';\n+import Login from './Login';\n+import CreateUser from './CreateUser';\n+import all from './AllStatusUpdatesPage';\n+\n+const router = createBrowserRouter([\n+  {\n+    path: '/pokemon/:pokemonId',\n+    element: <PokemonDetail />\n+  },\n+  {\n+    path: '/login',\n+    element: <Login />\n+  },\n+  {\n+    path: '/register',\n+    element: <CreateUser />\n+  },\n+  {\n+    path: '/',\n+    element: <HomePage />\n+  },\n+  {\n+    path: '/all',\n+    element: <AllStatusUpdatesPage />\n+  }\n+])\n+\n+\n+\n+ReactDOM.createRoot(document.getElementById('root')).render(\n+  <React.StrictMode>\n+    <RouterProvider router={router} />\n+  </React.StrictMode>,\n+)\n"
+                },
+                {
+                    "date": 1702769558164,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,9 +31,9 @@\n     element: <HomePage />\n   },\n   {\n     path: '/all',\n-    element: <AllStatusUpdatesPage />\n+    element: <all />\n   }\n ])\n \n \n"
+                },
+                {
+                    "date": 1702769584037,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,45 @@\n+import React from 'react'\n+import ReactDOM from 'react-dom/client'\n+import App from './App'\n+import HomePage from './Homepage';\n+\n+import {\n+  createBrowserRouter,\n+  RouterProvider,\n+  Route,\n+} from \"react-router-dom\";\n+import PokemonDetail from './PokemonDetail';\n+import Login from './Login';\n+import CreateUser from './CreateUser';\n+import all from './AllStatusUpdatesPage';\n+\n+const router = createBrowserRouter([\n+  {\n+    path: '/pokemon/:pokemonId',\n+    element: <PokemonDetail />\n+  },\n+  {\n+    path: '/login',\n+    element: <Login />\n+  },\n+  {\n+    path: '/register',\n+    element: <CreateUser />\n+  },\n+  {\n+    path: '/',\n+    element: <HomePage />\n+  },\n+  {\n+    path: '/all',\n+    element: <all />\n+  }\n+])\n+\n+\n+\n+ReactDOM.createRoot(document.getElementById('root')).render(\n+  <React.StrictMode>\n+    <RouterProvider router={router} />\n+  </React.StrictMode>,\n+)\n"
+                },
+                {
+                    "date": 1702779648449,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,9 +31,9 @@\n     element: <HomePage />\n   },\n   {\n     path: '/all',\n-    element: <all />\n+    element: <All />\n   }\n ])\n \n \n"
+                },
+                {
+                    "date": 1702780525042,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,8 +11,9 @@\n import PokemonDetail from './PokemonDetail';\n import Login from './Login';\n import CreateUser from './CreateUser';\n import All from './AllStatusUpdatesPage';\n+import UserPage from './UserPage'; // Import the new component\n \n const router = createBrowserRouter([\n   {\n     path: '/pokemon/:pokemonId',\n"
+                },
+                {
+                    "date": 1702780543220,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,50 @@\n+import React from 'react'\n+import ReactDOM from 'react-dom/client'\n+import App from './App'\n+import HomePage from './Homepage';\n+\n+import {\n+  createBrowserRouter,\n+  RouterProvider,\n+  Route,\n+} from \"react-router-dom\";\n+import PokemonDetail from './PokemonDetail';\n+import Login from './Login';\n+import CreateUser from './CreateUser';\n+import All from './AllStatusUpdatesPage';\n+import UserPage from './UserPage';\n+\n+const router = createBrowserRouter([\n+  {\n+    path: '/pokemon/:pokemonId',\n+    element: <PokemonDetail />\n+  },\n+  {\n+    path: '/login',\n+    element: <Login />\n+  },\n+  {\n+    path: '/register',\n+    element: <CreateUser />\n+  },\n+  {\n+    path: '/',\n+    element: <HomePage />\n+  },\n+  {\n+    path: '/all',\n+    element: <All />\n+  },\n+  {\n+    path: '/userPage',\n+    element: <UserPage />\n+  }\n+])\n+\n+\n+\n+ReactDOM.createRoot(document.getElementById('root')).render(\n+  <React.StrictMode>\n+    <RouterProvider router={router} />\n+  </React.StrictMode>,\n+)\n"
+                }
+            ],
+            "date": 1702744149669,
+            "name": "Commit-0",
+            "content": "import React from 'react'\nimport ReactDOM from 'react-dom/client'\nimport App from './App'\nimport Pokemons from './Pokemons'\n\nimport {\n  createBrowserRouter,\n  RouterProvider,\n  Route,\n} from \"react-router-dom\";\nimport PokemonDetail from './PokemonDetail';\nimport Login from './Login';\nimport CreateUser from './CreateUser';\n\nconst router = createBrowserRouter([\n  {\n    path: '/pokemon/:pokemonId',\n    element: <PokemonDetail />\n  },\n  {\n    path: '/login',\n    element: <Login />\n  },\n  {\n    path: '/register',\n    element: <CreateUser />\n  },\n  {\n    path: '/',\n    element: <Pokemons />\n  },\n\n\n])\n\n\n\nReactDOM.createRoot(document.getElementById('root')).render(\n  <React.StrictMode>\n    <RouterProvider router={router } />\n  </React.StrictMode>,\n)\n"
+        }
+    ]
+}

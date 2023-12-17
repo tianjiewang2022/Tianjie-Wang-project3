@@ -1,0 +1,50 @@
+{
+    "sourceFile": "backend/api/user.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 8,
+            "patches": [
+                {
+                    "date": 1702756362885,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1702782527286,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -99,9 +99,8 @@\n });\n \n router.get('/:username', async function (req, res) {\n     const username = req.params.username;\n-\n     try {\n         const userData = await UserModel.findUserByUsername(username);\n         return res.send(userData);\n     } catch (error) {\n"
+                },
+                {
+                    "date": 1702782532622,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -97,9 +97,9 @@\n \n     res.send(true);\n });\n \n-router.get('/:username', async function (req, res) {\n+router.get('/username', async function (req, res) {\n     const username = req.params.username;\n     try {\n         const userData = await UserModel.findUserByUsername(username);\n         return res.send(userData);\n"
+                },
+                {
+                    "date": 1702782689313,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,9 @@\n const router = express.Router();\n const jwt = require('jsonwebtoken');\n const UserModel = require('../db/user/user.model');\n \n+\n router.get('/', async function (request, response) {\n     try {\n         const allUsers = await UserModel.getAllUsers();\n         response.send(allUsers);\n"
+                },
+                {
+                    "date": 1702782890215,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -99,14 +99,34 @@\n     res.send(true);\n });\n \n router.get('/username', async function (req, res) {\n-    const username = req.params.username;\n+    const username = req.query.username; // Use req.query.username to get the username from URL parameters\n+\n     try {\n+        // Fetch user details and status updates based on the username\n         const userData = await UserModel.findUserByUsername(username);\n-        return res.send(userData);\n+        const statusUpdates = await UserModel.getStatusUpdates(username);\n+\n+        const userResponse = {\n+            username: userData.username,\n+            timestamp: userData.timestamp,\n+            description: userData.description, // Include other user details as needed\n+        };\n+\n+        const statusUpdatesResponse = statusUpdates.map((update) => ({\n+            _id: update._id,\n+            timestamp: update.timestamp,\n+            textContent: update.textContent,\n+        }));\n+\n+        return res.send({\n+            user: userResponse,\n+            statusUpdates: statusUpdatesResponse,\n+        });\n     } catch (error) {\n         res.status(500).send(error);\n     }\n });\n \n+\n module.exports = router;\n"
+                },
+                {
+                    "date": 1702782909458,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -127,6 +127,5 @@\n         res.status(500).send(error);\n     }\n });\n \n-\n module.exports = router;\n"
+                },
+                {
+                    "date": 1702782915812,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -126,6 +126,5 @@\n     } catch (error) {\n         res.status(500).send(error);\n     }\n });\n-\n module.exports = router;\n"
+                },
+                {
+                    "date": 1702783126284,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -99,19 +99,18 @@\n     res.send(true);\n });\n \n router.get('/username', async function (req, res) {\n-    const username = req.query.username; // Use req.query.username to get the username from URL parameters\n+    const username = req.query.username;\n \n     try {\n-        // Fetch user details and status updates based on the username\n         const userData = await UserModel.findUserByUsername(username);\n         const statusUpdates = await UserModel.getStatusUpdates(username);\n \n         const userResponse = {\n             username: userData.username,\n             timestamp: userData.timestamp,\n-            description: userData.description, // Include other user details as needed\n+            description: userData.description,\n         };\n \n         const statusUpdatesResponse = statusUpdates.map((update) => ({\n             _id: update._id,\n@@ -127,5 +126,6 @@\n         res.status(500).send(error);\n     }\n });\n \n+\n module.exports = router;\n"
+                },
+                {
+                    "date": 1702785996112,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -98,9 +98,9 @@\n \n     res.send(true);\n });\n \n-router.get('/username', async function (req, res) {\n+router.get('user/:username', async function (req, res) {\n     const username = req.query.username;\n \n     try {\n         const userData = await UserModel.findUserByUsername(username);\n"
+                }
+            ],
+            "date": 1702756362885,
+            "name": "Commit-0",
+            "content": "const express = require('express');\nconst router = express.Router();\nconst jwt = require('jsonwebtoken');\nconst UserModel = require('../db/user/user.model');\n\nrouter.get('/', async function (request, response) {\n    try {\n        const allUsers = await UserModel.getAllUsers();\n        response.send(allUsers);\n    } catch (error) {\n        response.status(500).send(error);\n    }\n});\n\nrouter.post('/', async function (request, response) {\n    const body = request.body;\n\n    try {\n        const newUserResponse = await UserModel.createUser(body);\n        response.send(\"Created new user!\");\n    } catch (error) {\n        response.status(500).send(error);\n    }\n});\n\nrouter.post('/login', async function (req, res) {\n    const username = req.body.username;\n    const password = req.body.password;\n\n    try {\n        const user = await UserModel.findUserByUsername(username);\n\n        if (!user || user.password !== password) {\n            return res.status(403).send(\"Invalid username or password\");\n        }\n\n        const token = jwt.sign({ username: user.username }, \"HUNTERS_PASSWORD\");\n\n        res.cookie(\"username\", token);\n\n        return res.send({ username: user.username });\n    } catch (e) {\n        res.status(401).send(null);\n    }\n});\n\nrouter.post('/register', async function (req, res) {\n    const username = req.body.username;\n    const password = req.body.password;\n\n    try {\n        if (!username || !password) {\n            return res.status(409).send(\"Missing username or password\");\n        }\n\n        const existingUser = await UserModel.findUserByUsername(username);\n\n        if (existingUser) {\n            return res.status(409).send(\"Username already exists\");\n        }\n\n        const createUserResponse = await UserModel.createUser({ username: username, password: password });\n\n        const token = jwt.sign({ username: createUserResponse.username }, \"HUNTERS_PASSWORD\");\n\n        res.cookie(\"username\", token);\n\n        return res.send({ username: createUserResponse.username });\n    } catch (e) {\n        res.status(500).send(e.message);\n    }\n});\n\nrouter.get('/isLoggedIn', async function (req, res) {\n    const username = req.cookies.username;\n\n    if (!username) {\n        return res.send({ username: null });\n    }\n\n    try {\n        const decodedToken = jwt.verify(username, \"HUNTERS_PASSWORD\");\n        if (!decodedToken || !decodedToken.username) {\n            return res.send({ username: null });\n        } else {\n            return res.send({ username: decodedToken.username });\n        }\n    } catch (e) {\n        return res.send({ username: null });\n    }\n});\n\nrouter.post('/logOut', function (req, res) {\n    res.cookie('username', '', {\n        maxAge: 0,\n    });\n\n    res.send(true);\n});\n\nrouter.get('/:username', async function (req, res) {\n    const username = req.params.username;\n\n    try {\n        const userData = await UserModel.findUserByUsername(username);\n        return res.send(userData);\n    } catch (error) {\n        res.status(500).send(error);\n    }\n});\n\nmodule.exports = router;\n"
+        }
+    ]
+}
