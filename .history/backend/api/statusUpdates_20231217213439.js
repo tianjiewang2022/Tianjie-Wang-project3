@@ -1,11 +1,9 @@
-import jwt from 'jsonwebtoken';
-import axios from 'axios'; // Import axios for making HTTP requests
-
 const { Router } = require('express');
 const router = Router();
 const StatusUpdateModel = require('../db/statusUpdates/statusUpdates.model').default;
 const UserModel = require('../db/user/user.model').default;
-
+import jwt from 'jsonwebtoken';
+import axios from 'axios'; // Import axios for making HTTP requests
 
 // POST /api/status-updates
 router.post('/', async function (req, res) {
