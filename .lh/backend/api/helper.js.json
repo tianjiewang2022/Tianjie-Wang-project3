@@ -1,0 +1,18 @@
+{
+    "sourceFile": "backend/api/helper.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1702828653546,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1702828653546,
+            "name": "Commit-0",
+            "content": "function returnWords() {\n\n    return \"hello web dev from a helper function!\";\n\n}\n\nexports.returnWords = returnWords"
+        }
+    ]
+}
