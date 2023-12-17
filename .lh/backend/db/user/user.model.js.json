@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 16,
+            "activePatchIndex": 17,
             "patches": [
                 {
                     "date": 1702782734964,
@@ -72,6 +72,10 @@
                 {
                     "date": 1702800975578,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,27 +17,5 @@\n \n export default {\n     createUser,\n     findUserByUsername,\n-}\n-import { model } from \"mongoose\";\n-\n-import { UserSchema } from './user.schema';\n-import { statusUpdateSchema } from '../statusUpdates/statusUpdates.schema'\n-\n-const UserModel = model(\"UserModel\", UserSchema);\n-// const StatusUpdate = model(\"StatusUpdate\", statusUpdateSchema);\n-\n-function createUser(user) {\n-    return UserModel.create(user);\n-}\n-\n-function findUserByUsername(username) {\n-    return UserModel.findOne({ username: username }).exec();\n-}\n-\n-\n-export default {\n-    createUser,\n-    findUserByUsername,\n-\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1702816659789,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,8 +6,9 @@\n const UserModel = model(\"UserModel\", UserSchema);\n \n \n function createUser(user) {\n+    user.joinTimestamp = Date.now();\n     return UserModel.create(user);\n }\n \n function findUserByUsername(username) {\n"
                 }
             ],
             "date": 1702782734964,
