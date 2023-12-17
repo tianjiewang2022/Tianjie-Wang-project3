@@ -1,6 +1,6 @@
 // statusUpdate.model.js
-const mongoose = require('mongoose'); // Add this line to import mongoose
-const { statusUpdateSchema } = require('./statusUpdates.schema');
+// import { model } from 'mongoose';
+import { statusUpdateSchema } from './statusUpdates.schema';
 
 
 const StatusUpdate = mongoose.model('StatusUpdate', statusUpdateSchema);

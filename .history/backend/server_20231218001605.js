@@ -25,7 +25,7 @@ app.use(cookieParser());
 
 
 
-// app.use('/api', require('./routes/statusUpdates.route'));
+app.use('/api', require('./routes/statusUpdates.route'));
 
 
 app.use('/api/statusUpdates', statusUpdates);

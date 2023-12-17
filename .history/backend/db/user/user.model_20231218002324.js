@@ -15,7 +15,7 @@ function findUserByUsername(username) {
 }
 
 
-module.exports = {
+export default {
     createUser,
     findUserByUsername,
-};
+}

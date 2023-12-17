@@ -3,9 +3,8 @@
 
 const { Router } = require('express');
 const router = Router();
-const StatusUpdateModel = require('../db/statusUpdates/statusUpdates.model');
-
-const UserModel = require('../db/user/user.model');
+const StatusUpdateModel = require('../db/statusUpdates/statusUpdates.model').default.default;
+const UserModel = require('../db/user/user.model').default;
 
 
 // POST /api/status-updates

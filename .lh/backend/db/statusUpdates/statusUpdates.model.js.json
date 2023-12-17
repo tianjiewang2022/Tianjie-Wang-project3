@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 11,
+            "activePatchIndex": 15,
             "patches": [
                 {
                     "date": 1702756005881,
@@ -52,6 +52,22 @@
                 {
                     "date": 1702801609434,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,37 @@\n+// statusUpdate.model.js\n+import { model } from 'mongoose';\n+import { statusUpdateSchema } from './statusUpdates.schema';\n+\n+\n+const StatusUpdate = mongoose.model('StatusUpdate', statusUpdateSchema);\n+\n+async function getStatusUpdatesWithUserDetails() {\n+    try {\n+        const statusUpdates = await StatusUpdate.find();\n+\n+        // Fetch user details for each status update\n+        const statusUpdatesWithUserDetails = await Promise.all(\n+            statusUpdates.map(async (update) => {\n+                const user = await UserModel.findUserByUsername(update.username);\n+                return {\n+                    _id: update._id,\n+                    timestamp: update.timestamp,\n+                    textContent: update.textContent,\n+                    user: {\n+                        username: user.username,\n+                        joinTimestamp: user.joinTimestamp,\n+                        description: user.description,\n+                    },\n+                };\n+            })\n+        );\n+\n+        return statusUpdatesWithUserDetails;\n+    } catch (error) {\n+        throw error;\n+    }\n+}\n+\n+module.exports = {\n+    getStatusUpdatesWithUserDetails,\n+};\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1702829808113,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n // statusUpdate.model.js\n-import { model } from 'mongoose';\n+// import { model } from 'mongoose';\n import { statusUpdateSchema } from './statusUpdates.schema';\n \n \n const StatusUpdate = mongoose.model('StatusUpdate', statusUpdateSchema);\n"
+                },
+                {
+                    "date": 1702829858594,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n // statusUpdate.model.js\n-// import { model } from 'mongoose';\n-import { statusUpdateSchema } from './statusUpdates.schema';\n+const { model } = require('mongoose');\n+const { statusUpdateSchema } = require('./statusUpdates.schema');\n \n \n const StatusUpdate = mongoose.model('StatusUpdate', statusUpdateSchema);\n \n"
+                },
+                {
+                    "date": 1702829928752,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n // statusUpdate.model.js\n-const { model } = require('mongoose');\n-const { statusUpdateSchema } = require('./statusUpdates.schema');\n+import { model } from 'mongoose';\n+import { statusUpdateSchema } from './statusUpdates.schema';\n \n \n const StatusUpdate = mongoose.model('StatusUpdate', statusUpdateSchema);\n \n@@ -31,7 +31,7 @@\n         throw error;\n     }\n }\n \n-module.exports = {\n+export default {\n     getStatusUpdatesWithUserDetails,\n };\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1702829992118,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n // statusUpdate.model.js\n-import { model } from 'mongoose';\n-import { statusUpdateSchema } from './statusUpdates.schema';\n+const mongoose = require('mongoose'); // Add this line to import mongoose\n+const { statusUpdateSchema } = require('./statusUpdates.schema');\n \n \n const StatusUpdate = mongoose.model('StatusUpdate', statusUpdateSchema);\n \n@@ -31,44 +31,7 @@\n         throw error;\n     }\n }\n \n-export default {\n-    getStatusUpdatesWithUserDetails,\n-};\n-// statusUpdate.model.js\n-import { model } from 'mongoose';\n-import { statusUpdateSchema } from './statusUpdates.schema';\n-\n-\n-const StatusUpdate = mongoose.model('StatusUpdates', statusUpdateSchema);\n-\n-async function getStatusUpdatesWithUserDetails() {\n-    try {\n-        const statusUpdates = await StatusUpdate.find();\n-\n-        // Fetch user details for each status update\n-        const statusUpdatesWithUserDetails = await Promise.all(\n-            statusUpdates.map(async (update) => {\n-                const user = await UserModel.findUserByUsername(update.username);\n-                return {\n-                    _id: update._id,\n-                    timestamp: update.timestamp,\n-                    textContent: update.textContent,\n-                    user: {\n-                        username: user.username,\n-                        joinTimestamp: user.joinTimestamp,\n-                        description: user.description,\n-                    },\n-                };\n-            })\n-        );\n-\n-        return statusUpdatesWithUserDetails;\n-    } catch (error) {\n-        throw error;\n-    }\n-}\n-\n module.exports = {\n     getStatusUpdatesWithUserDetails,\n };\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1702756005880,

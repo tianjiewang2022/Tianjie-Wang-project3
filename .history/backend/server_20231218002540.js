@@ -49,16 +49,16 @@ app.listen(process.env.PORT || 8000, function () {
 
 
 
-const http = require('http');
+// const http = require('http');
 
-const server = http.createServer(function (request, response) {
+// const server = http.createServer(function (request, response) {
 
-    response.writeHead(200, { 'Content-Type': 'text/plain' });
-    response.end('Hello web dev!');
+//     response.writeHead(200, { 'Content-Type': 'text/plain' });
+//     response.end('Hello web dev!');
 
-})
+// })
 
 // 127.0.0.1 === localhost
-server.listen(8000, "127.0.0.1", function () {
-    console.log("The server has started!")
-})
+// server.listen(8000, "127.0.0.1", function () {
+//     console.log("The server has started!")
+// })

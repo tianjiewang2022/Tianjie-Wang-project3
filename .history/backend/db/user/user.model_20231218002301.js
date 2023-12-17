@@ -1,5 +1,6 @@
-const { model } = require('mongoose');
-const { UserSchema } = require('./user.schema');
+import { model } from "mongoose";
+
+import { UserSchema } from './user.schema';
 
 
 const UserModel = model("UserModel", UserSchema);
@@ -15,7 +16,7 @@ function findUserByUsername(username) {
 }
 
 
-module.exports = {
+export default {
     createUser,
     findUserByUsername,
-};
+}
