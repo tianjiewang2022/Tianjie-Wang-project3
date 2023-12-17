@@ -45,7 +45,7 @@ export default function AllStatusUpdatesPage() {
                     <div className="status-update" key={statusUpdate._id}>
                         <Link to={`/user/${statusUpdate.username}`}>
                             <p>
-                                <span className="username">{statusUpdate.username}</span>
+                                <span>{statusUpdate.username}</span>
                                 <span className="timestamp">{statusUpdate.timestamp}</span>
                             </p>
                         </Link>
@@ -56,3 +56,4 @@ export default function AllStatusUpdatesPage() {
         </div>
     );
 }
+

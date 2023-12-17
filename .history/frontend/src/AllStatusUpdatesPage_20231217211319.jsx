@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
 import Header from './Header';
-import './AllStatusUpdates.css';
+import './AllStatusUpdatesPage.css';
 
 export default function AllStatusUpdatesPage() {
     const [allStatusUpdates, setAllStatusUpdates] = useState([]);
@@ -44,11 +44,9 @@ export default function AllStatusUpdatesPage() {
                 {allStatusUpdates.map((statusUpdate) => (
                     <div className="status-update" key={statusUpdate._id}>
                         <Link to={`/user/${statusUpdate.username}`}>
-                            <p>
-                                <span className="username">{statusUpdate.username}</span>
-                                <span className="timestamp">{statusUpdate.timestamp}</span>
-                            </p>
+                            <p>{statusUpdate.username}</p>
                         </Link>
+                        <p>{statusUpdate.timestamp}</p>
                         <p>{statusUpdate.textContent}</p>
                     </div>
                 ))}

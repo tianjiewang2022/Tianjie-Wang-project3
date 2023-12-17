@@ -1,0 +1,18 @@
+{
+    "sourceFile": "frontend/src/styles.css",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1702818538075,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1702818538075,
+            "name": "Commit-0",
+            "content": "/* HomePage.css */\n\nbody {\n    font-family: 'Arial', sans-serif;\n    margin: 0;\n    padding: 0;\n  }\n  \n  .container {\n    max-width: 600px;\n    margin: 0 auto;\n  }\n  \n  .header {\n    background-color: #00aced;\n    color: white;\n    padding: 10px;\n    text-align: center;\n  }\n  \n  .navbar {\n    background-color: #00aced;\n    color: white;\n    padding: 10px;\n    text-align: center;\n  }\n  \n  .login-prompt {\n    background-color: #ff8c8c;\n    color: white;\n    padding: 10px;\n    margin-bottom: 20px;\n    text-align: center;\n  }\n  \n  .status-container {\n    margin-top: 20px;\n  }\n  \n  .status-container p {\n    margin-bottom: 10px;\n  }\n  \n  .input-container {\n    margin-top: 20px;\n  }\n  \n  .input-container input {\n    width: 100%;\n    padding: 10px;\n    box-sizing: border-box;\n    margin-bottom: 10px;\n  }\n  \n  .input-container button {\n    background-color: #00aced;\n    color: white;\n    padding: 10px;\n    cursor: pointer;\n    border: none;\n  }\n  \n  .input-container button:hover {\n    background-color: #007bb5;\n  }\n  "
+        }
+    ]
+}
