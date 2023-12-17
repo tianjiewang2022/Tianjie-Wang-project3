@@ -4,11 +4,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import Navbar from './Navbar';
-import Header from './Header';
 
 export default function AllStatusUpdatesPage() {
     const [allStatusUpdates, setAllStatusUpdates] = useState([]);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
         fetchAllStatusUpdates();
@@ -24,27 +22,14 @@ export default function AllStatusUpdatesPage() {
             // const allUsers = userResponse.data;
             setAllStatusUpdates(sortedUpdates);
             console.log(sortedUpdates);
-            const userResponse = await axios.get('/api/user/isLoggedIn');
-            setIsLoggedIn(userResponse.data.username || null);
             // console.log(allUsers);
         } catch (error) {
             console.error('Error fetching all status updates:', error);
         }
     }
-    async function logOutUser() {
-        try {
-            await axios.post('/api/user/logOut');
-            setIsLoggedIn(null);
-        } catch (error) {
-            console.error('Error logging out:', error);
-        }
-    }
 
     return (
         <div>
-
-            <Header isLoggedIn={isLoggedIn} logOutUser={logOutUser} />
-            <Navbar isLoggedIn={isLoggedIn} />
             <h2>All Status Updates</h2>
             {allStatusUpdates.map((statusUpdate) => (
                 <div key={statusUpdate._id}>

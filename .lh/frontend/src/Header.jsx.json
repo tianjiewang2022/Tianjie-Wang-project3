@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1702745560276,
@@ -12,6 +12,10 @@
                 {
                     "date": 1702750376726,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,22 +11,22 @@\n     async function checkIfUserIsLoggedIn() {\n         const response = await axios.get('/api/users/isLoggedIn')\n \n         setActiveUsername(response.data.username)\n-    \n+\n     }\n \n     useEffect(() => {\n         checkIfUserIsLoggedIn()\n     }, []);\n \n     async function logOutUser() {\n \n-        await axios.post('/api/users/logOut')\n+        await axios.post('/api/user/logOut')\n         setActiveUsername(null)\n     }\n \n-    if(!activeUsername) {\n+    if (!activeUsername) {\n \n         return (<div className='header'>\n             <Link to=\"/login\" >Click here to login</Link>\n         </div>)\n"
+                },
+                {
+                    "date": 1702817639716,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n \n     const [activeUsername, setActiveUsername] = useState(null)\n \n     async function checkIfUserIsLoggedIn() {\n-        const response = await axios.get('/api/users/isLoggedIn')\n+        const response = await axios.get('/api/user/isLoggedIn')\n \n         setActiveUsername(response.data.username)\n \n     }\n@@ -35,9 +35,9 @@\n \n     return (\n         <div className='header'>\n             <div >Welcome, {activeUsername}</div>\n-            <button onClick={logOutUser}>Log Out!</button>\n+            <button onClick={logOutUser}>Log Out</button>\n         </div>\n \n     )\n \n"
                 }
             ],
             "date": 1702745560276,

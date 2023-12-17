@@ -133,6 +133,8 @@ export default function UserPage({ loggedInUser }) {
             ) : (
                 <p>No status updates available.</p>
             )}
+
+            <Link to="/all-status-updates">Back to All Status Updates</Link>
         </div>
     );
 }

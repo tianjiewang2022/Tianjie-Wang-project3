@@ -24,8 +24,6 @@ export default function AllStatusUpdatesPage() {
             // const allUsers = userResponse.data;
             setAllStatusUpdates(sortedUpdates);
             console.log(sortedUpdates);
-            const userResponse = await axios.get('/api/user/isLoggedIn');
-            setIsLoggedIn(userResponse.data.username || null);
             // console.log(allUsers);
         } catch (error) {
             console.error('Error fetching all status updates:', error);
@@ -42,7 +40,7 @@ export default function AllStatusUpdatesPage() {
 
     return (
         <div>
-
+            console.log(isLoggedIn);
             <Header isLoggedIn={isLoggedIn} logOutUser={logOutUser} />
             <Navbar isLoggedIn={isLoggedIn} />
             <h2>All Status Updates</h2>

@@ -115,43 +115,6 @@ router.get('/:username', async function (req, res) {
     }
 });
 
-// Update user description (only for the logged-in user)
-router.put('/:username', async function (req, res) {
-    const loggedInUsername = req.cookies.username;
-    const targetUsername = req.params.username;
-    const newDescription = req.body.description;
-
-    try {
-        // Ensure the logged-in user is updating their own description
-        if (loggedInUsername !== targetUsername) {
-            return res.status(403).send("Forbidden: You can only update your own description");
-        }
-
-        const updatedUser = await UserModel.updateUserDescription(targetUsername, newDescription);
-
-        return res.send(updatedUser);
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
-});
-
-// Get all status updates for a user
-router.get('/:username/statusUpdates', async function (req, res) {
-    const username = req.params.username;
-
-    try {
-        const user = await UserModel.findUserByUsername(username);
-
-        if (!user) {
-            return res.status(404).send("User not found");
-        }
-
-        return res.send(user.statusUpdates || []);
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
-});
-
 
 
 
